@@ -8,6 +8,7 @@ const Admin = () => {
   return (
     <div>
       <h1>Admin</h1>
+      <h3>Make New Listing</h3>
       <ListingCreationForm />
       <Inquiries />
       <ViewListings />
