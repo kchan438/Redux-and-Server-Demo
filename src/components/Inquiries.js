@@ -2,7 +2,7 @@ import React from 'react';
 
 const Inquiries = () => {
   return (
-    <div>
+    <div className="inquiry">
     </div>
   );
 };
