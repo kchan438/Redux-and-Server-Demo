@@ -1,7 +1,7 @@
 //returning an event object
-export const getInquiry = getInq => {
+export const getInquiryList = getInq => {
     return ({
-        type: 'getInquiry',
+        type: 'getInquiryList',
         getInq,
     });
 };

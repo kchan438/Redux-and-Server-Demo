@@ -1,18 +1,17 @@
 const INITIAL_STATE = {
-  stateType: 'INITIAL_INQ_STATE',
-  length: 0,
+  type: '',
   message: '',
   inquiries: [],
 };
 
 const inquiryReducer = (state = INITIAL_STATE, action) => {
-  // console.log(state);
-  // console.log(action);
-  switch(action.stateType) {
-    case 'getInquiry':
+  console.log(state);
+  console.log(action);
+  switch(action.type) {
+    case 'getInquiryList':
       return {
         ...state,
-        message: action.getInquiry,
+        inquiries: action.getInq,
       };
     default:
       // console.log('default state');

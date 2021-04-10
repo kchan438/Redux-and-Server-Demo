@@ -17,3 +17,8 @@ export const setPrice = price => ({
         type: 'setPrice',
         price,
 });
+
+export const pushListings = listingsArr => ({
+    type: 'pushListings',
+    listingsArr,
+});

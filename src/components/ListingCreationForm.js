@@ -1,6 +1,7 @@
+import Axios from 'axios';
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { setTitle, setDescription, setType, setPrice } from '../redux/actions/listingActions';
+import { setTitle, setDescription, setType, setPrice, pushListings } from '../redux/actions/listingActions';
 
 const ListingCreationForm = () => {
 
@@ -9,9 +10,30 @@ const ListingCreationForm = () => {
   const reducerDescription = useSelector(state => state.listingReducer.description);
   const reducerType = useSelector(state => state.listingReducer.postType);
   const reducerPrice = useSelector(state => state.listingReducer.price);
-
+  
   const inputListing = () => {
-    // make call to REST API
+    const body = {
+      title: document.getElementById('input-title').value,
+      description: document.getElementById('input-description').value,
+      type:  document.getElementById('input-type').value,
+      price: document.getElementById('input-price').value,
+    };
+
+    Axios.post('http://localhost:3001/api/createListing', body)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    Axios.get('http://localhost:3001/api/viewListings')
+      .then((res) => {
+        console.log(res.data.items);
+        dispatch(pushListings(res.data.items));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -54,10 +76,3 @@ const ListingCreationForm = () => {
 };
 
 export default ListingCreationForm;
-
-  // const inputListing = () => {
-  //   const title = document.getElementById('input-title').value;
-  //   const description = document.getElementById('input-description').value;
-  //   const type = document.getElementById('input-type').value;
-  //   const price = document.getElementById('input-price').value;
-  // };

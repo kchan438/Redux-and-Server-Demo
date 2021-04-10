@@ -1,16 +1,14 @@
 const INITIAL_LIS_STATE = {
-  stateName: 'INITIAL_LIS_STATE',
-  length: 0,
+  type: '',
   title: '',
   description: '',
-  postType: '',
   price: '',
   listings: [],
 };
 
 const listingReducer = (state = INITIAL_LIS_STATE, action) => {
-  console.log(state);
-  console.log(action);
+  // console.log(state);
+  // console.log(action.type);
   switch(action.type) {
     case 'setTitle':
       return {
@@ -25,13 +23,18 @@ const listingReducer = (state = INITIAL_LIS_STATE, action) => {
     case 'setType':
       return {
         ...state,
-        postType: action.postType,
+        type: action.postType,
       };
       case 'setPrice':
         return {
           ...state,
           price: action.price,
         };
+      case 'pushListings':
+          return {
+            ...state,
+            listings: action.listingsArr,
+          }
     default:
       return state;
   }
