@@ -5,7 +5,9 @@ import { setTitle, setDescription, setType, setPrice, pushListings } from '../re
 
 const ListingCreationForm = () => {
 
+  //function that fetches data from store
   const dispatch = useDispatch();
+  //gets the state variables
   const reducerTitle = useSelector(state => state.listingReducer.title);
   const reducerDescription = useSelector(state => state.listingReducer.description);
   const reducerType = useSelector(state => state.listingReducer.postType);
@@ -19,14 +21,14 @@ const ListingCreationForm = () => {
       price: document.getElementById('input-price').value,
     };
 
-    Axios.post('http://localhost:3001/api/createListing', body)
+    Axios.post('http://localhost:3000/api/createListing', body)
       .then((res) => {
         console.log(res.data);
       })
       .catch((err) => {
         console.log(err);
       });
-    Axios.get('http://localhost:3001/api/viewListings')
+    Axios.get('http://localhost:3000/api/viewListings')
       .then((res) => {
         console.log(res.data.items);
         dispatch(pushListings(res.data.items));

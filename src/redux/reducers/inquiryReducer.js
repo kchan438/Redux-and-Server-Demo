@@ -5,7 +5,7 @@ const INITIAL_STATE = {
 };
 
 const inquiryReducer = (state = INITIAL_STATE, action) => {
-  console.log(state);
+  // console.log(state);
   console.log(action);
   switch(action.type) {
     case 'getInquiryList':
@@ -13,8 +13,12 @@ const inquiryReducer = (state = INITIAL_STATE, action) => {
         ...state,
         inquiries: action.getInq,
       };
+    case 'setInquiryList':
+      return {
+        ...state,
+        message: action.setInq,
+      };
     default:
-      // console.log('default state');
       return state;
   }
 };
