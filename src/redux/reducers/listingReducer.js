@@ -35,6 +35,16 @@ const listingReducer = (state = INITIAL_LIS_STATE, action) => {
             ...state,
             listings: action.listingsArr,
           }
+      case 'getListing':
+        return {
+          ...state,
+          listing: action.listing,
+        };
+    case 'setUserMode':
+      return {
+        ...state,
+        userMode: action.userMode,
+      };
     default:
       return state;
   }

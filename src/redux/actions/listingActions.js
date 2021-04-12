@@ -22,3 +22,13 @@ export const pushListings = listingsArr => ({
     type: 'pushListings',
     listingsArr,
 });
+
+export const getListings = listings => ({
+        type: 'getListing',
+        listings,
+});
+
+export const setUserMode = userMode => ({
+        type: 'setUserMode',
+        userMode,
+});

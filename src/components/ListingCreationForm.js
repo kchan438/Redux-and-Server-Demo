@@ -17,7 +17,7 @@ const ListingCreationForm = () => {
     const body = {
       title: document.getElementById('input-title').value,
       description: document.getElementById('input-description').value,
-      type:  document.getElementById('input-type').value,
+      type: document.getElementById('input-type').value,
       price: document.getElementById('input-price').value,
     };
 
