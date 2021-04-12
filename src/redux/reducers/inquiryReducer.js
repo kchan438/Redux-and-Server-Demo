@@ -1,12 +1,13 @@
 const INITIAL_STATE = {
   type: '',
+  // id: '',
   message: '',
   inquiries: [],
 };
 
 const inquiryReducer = (state = INITIAL_STATE, action) => {
   // console.log(state);
-  console.log(action);
+  // console.log(action);
   switch(action.type) {
     case 'getInquiryList':
       return {
