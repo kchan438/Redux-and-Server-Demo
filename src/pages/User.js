@@ -8,7 +8,7 @@ const User = () => {
       <h1>User</h1>
       <ViewListings userMode={true} />
       {/* Listing is used for testing for userMode check */}
-      <Listing />
+      {/* <Listing userMode={true} /> */}
     </div>
   );
 };

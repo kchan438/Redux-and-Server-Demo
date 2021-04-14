@@ -1,17 +1,23 @@
 //returning an event object
 
-//retrieve data from the store
-export const getInquiryList = getInq => {
+//save data into the store
+export const setInquiryList = inquiries => {
     return ({
-        type: 'getInquiryList',
-        getInq,
+        type: 'setInquiryList',
+        inquiries,
     });
 };
 
-//save data into the store
-export const setInquiryList = message => {
-    return({
-        type: 'setInquiryList',
+export const sendInquiry = message => {
+    return ({
+        type: 'sendInquiry',
         message,
+    });
+};
+
+export const appendInquiry = appendInq => {
+    return ({
+        type: 'appendInquiry',
+        appendInq,
     });
 };

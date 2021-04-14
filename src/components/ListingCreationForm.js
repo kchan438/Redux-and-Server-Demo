@@ -1,7 +1,8 @@
 import Axios from 'axios';
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { setTitle, setDescription, setType, setPrice, pushListings } from '../redux/actions/listingActions';
+import { setInquiryList } from '../redux/actions/inquiryActions';
+import { setTitle, setDescription, setType, setPrice, setListings } from '../redux/actions/listingActions';
 
 const ListingCreationForm = () => {
 
@@ -21,21 +22,26 @@ const ListingCreationForm = () => {
       price: document.getElementById('input-price').value,
     };
 
-    Axios.post('http://localhost:3000/api/createListing', body)
+    Axios.post('/api/createListing', body)
       .then((res) => {
         console.log(res.data);
+        dispatch(setInquiryList(res.data.items));
       })
       .catch((err) => {
         console.log(err);
       });
-    Axios.get('http://localhost:3000/api/viewListings')
+    Axios.get('/api/viewListings')
       .then((res) => {
         console.log(res.data.items);
-        dispatch(pushListings(res.data.items));
+        dispatch(setListings(res.data.items));
       })
       .catch((err) => {
         console.log(err);
       });
+    document.getElementById('input-title').value = '';
+    document.getElementById('input-description').value = '';
+    document.getElementById('input-type').value = '';
+    document.getElementById('input-price').value = '';
   };
 
   return (

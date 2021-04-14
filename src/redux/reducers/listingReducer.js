@@ -25,26 +25,26 @@ const listingReducer = (state = INITIAL_LIS_STATE, action) => {
         ...state,
         type: action.postType,
       };
-      case 'setPrice':
-        return {
-          ...state,
-          price: action.price,
-        };
-      case 'pushListings':
-          return {
-            ...state,
-            listings: action.listingsArr,
-          }
-      case 'getListing':
-        return {
-          ...state,
-          listing: action.listing,
-        };
+    case 'setPrice':
+      return {
+        ...state,
+        price: action.price,
+      };
+    case 'setListings':
+      return {
+        ...state,
+        listings: action.listingsArr,
+      }
     case 'setUserMode':
       return {
         ...state,
         userMode: action.userMode,
       };
+    case 'deleteListing':
+      return {
+        ...state,
+        listings: state.listings.filter(listing => listing.id !== action.deleteListing),
+      }        
     default:
       return state;
   }

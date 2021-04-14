@@ -18,17 +18,17 @@ export const setPrice = price => ({
         price,
 });
 
-export const pushListings = listingsArr => ({
-    type: 'pushListings',
+export const setListings = listingsArr => ({
+    type: 'setListings',
     listingsArr,
-});
-
-export const getListings = listings => ({
-        type: 'getListing',
-        listings,
 });
 
 export const setUserMode = userMode => ({
         type: 'setUserMode',
         userMode,
+});
+
+export const deleteListing = deleteListing => ({
+        type: 'deleteListing',
+        deleteListing,
 });

@@ -10,7 +10,7 @@ const Inquiries = () => {
     {inquiryList.map((item) => {
       return (
         // may need a key prop for li, use id from inquiry selector...?
-        <li className="inquiry">{item.message}</li>
+        <p className="inquiry">{item.message}</p>
       )
     })}
     </div>

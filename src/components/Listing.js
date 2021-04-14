@@ -1,49 +1,123 @@
 import React from 'react';
 import Axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
-import { setUserMode } from '../redux/actions/listingActions';
+import { setInquiryList, sendInquiry, appendInquiry } from '../redux/actions/inquiryActions';
 
 //this is what i needed to get listing
-const Listing = ( {listing} ) => {
+const Listing = ( props ) => {
   const dispatch = useDispatch();
-  const title = useSelector(state => state.listingReducer.title);
-  const description= useSelector(state => state.listingReducer.description);
-  const type = useSelector(state => state.listingReducer.price);
-  const price = useSelector(state => state.listingReducer.price);
-  const id = useSelector(state => state.listingReducer.id);
-  const userMode = useSelector(state => state.listingReducer.userMode);
+  const inquiries = useSelector(state => state.inquiryReducer.inquiries);
+  const message = useSelector(state => state.inquiryReducer.message);
   
-  console.log(listing);
-
-  //1.) Get listing to show up
+  //1.) Get listing to show up -DONE
   //2.) Write a check if we are on admin or user page, 'Delete' or 'Send Inquiry'
+
+  //axios call to deleteListing based on id given
+  //STILL NEEDS TO BE WORKED ON
+  const deleteListing = () => {
+    Axios.get(`/api/deleteListing?id=${props.listing.id}`)
+    .then((res) => {
+      dispatch(deleteListing(props.listing.id));
+      // console.log(res.data);
+      //should go into store and delete listing
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  };
+
+//axios call to getInquries based on listing.id
+const viewInquiries = () => {
+  Axios.get(`/api/getInquiries?listingId=${props.listing.id}`)
+  .then((res) => {
+    dispatch(setInquiryList(res.data.inquiries));
+    //might need a return statement here to get the listing info
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+};
+
+//axios call to makeInquiries API based on listing.id
+const makeInquirySubmit = () => {
+  const message = {
+    message: document.getElementById("textArea").value,
+  };
+  console.log('inquiries: ' + inquiries);
+  Axios.post(`/api/makeInquiry?listingId=${props.listing.id}`, message)
+  .then((res) => {
+    // console.log(res.data);
+    dispatch(appendInquiry(message.message));
+    document.getElementById("textArea").value = '';
+    // console.log('textarea: ' + document.getElementById("textArea").value);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+};
+const textAreaHandleChange = (e) => {
+  const action = sendInquiry(e.target.value);
+  dispatch(action);
+}
 
   return (
     <table className="listing">
       <tbody>
         <tr>
           <td>Title: </td>
-          <td>{title}</td>
+          <td>
+            {/* {listing === undefined && (console.log('listing is undefined')) || listing === !undefined && (listing.title)} */}
+            {props.listing.title}
+          </td>
         </tr>
         <tr>
           <td>Description: </td>
-          <td>{description}</td>
+          <td>
+          {/* {listing === undefined && (console.log('listing is undefined')) || listing === !undefined && (listing.description)} */}
+            {props.listing.description}
+          </td>
         </tr>
         <tr>
           <td>Type: </td>
-          <td>{type}</td>
+          <td>
+            {/* {listing === undefined && (console.log('listing is undefined')) || listing === !undefined && (listing.type)} */}
+            {props.listing.type}
+          </td>
         </tr>
         <tr>
           <td>Price: </td>
-          <td>{price}</td>
+          <td>
+          {/* { listing === undefined && (console.log('listing is undefined')) || listing === !undefined && (listing.price)} */}
+            {props.listing.price}
+          </td>
         </tr>
         <tr>
-          <td>
-            {/* {checkUserMode} */}
-          </td>
-          <td>
-            <button>View Inquiries</button>
-          </td>
+          {props.userMode === undefined && (
+            <tr>
+              <td>
+                <button type="submit" id="deleteInquiry" onClick={deleteListing}>Delete</button>
+              </td>
+              <td>
+                <button onClick={viewInquiries}>View Inquiries</button>
+                {console.log('after click viewInquries: ' + JSON.stringify(inquiries))}
+              </td>
+            </tr>
+          )}
+          {props.userMode === true && (
+            <tr>
+              <td>
+                <textarea id="textArea" onChange={textAreaHandleChange}>
+                </textarea>
+              </td>
+              <td>
+                <button className="submit" type="submit" onClick={makeInquirySubmit}>Send Inquiry</button>
+              </td>
+              <tr>
+                {/* {console.log('user inquiries: ' + JSON.stringify(inquiries))} */}
+                <p hidden>{message}</p>
+              </tr>
+            </tr>
+          )}
         </tr>
       </tbody>
     </table>
@@ -51,50 +125,3 @@ const Listing = ( {listing} ) => {
 };
 
 export default Listing;
-
-  //checks if userMode is either an admin or user
-  // const checkUserMode = () => {
-  //   console.log('checkUsermode');
-  //   if(userMode) {
-  //       return(
-  //         <div>
-  //           <input type="text" />
-  //           <button type="submit" id="submitInquiry">Send Inquiry</button>
-  //         </div>
-  //       );
-  //   } else {
-  //     return <button type="submit" id="deleteListing">Delete</button>;
-  //   }
-  // };
-
-
-  // const deleteListing = () => {
-  //   Axios.get(`http://localhost:3000/api/deleteListing?Id=${id}`)
-  //   .then((res) => {
-  //     console.log(res.data);
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //   });
-  // };
-
-  // const viewInquiries = () => {
-  //     Axios.get('http://localhost:3000/api/viewListings')
-  //     .then((res) => {
-  //       console.log(res.data);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  //   // needs one more Axios call?
-  // };
-
-  // const makeInquiry = () => {
-  //   Axios.post('http://localhost:3000/api/makeInquiry')
-  //   .then((res) => {
-  //     console.log(res.data);
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //   });
-  // };

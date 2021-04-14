@@ -19,7 +19,7 @@ const Admin = () => {
       <Inquiries />
       <ViewListings />
       {/* Listing is used for testing for userMode check */}
-      <Listing />
+      {/* <Listing userMode={false} /> */}
     </div>
   );
 };
