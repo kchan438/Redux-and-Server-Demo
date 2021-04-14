@@ -10,12 +10,12 @@ const ViewListings = (props) => {
 
   useEffect(() => {
     Axios.get('/api/viewListings')
-    .then((res) => {
-      dispatch(setListings(res.data.items));
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+      .then((res) => {
+        dispatch(setListings(res.data.items));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, [dispatch]);
 
   return (
@@ -30,7 +30,7 @@ const ViewListings = (props) => {
             <li>Price: {item.price}</li> */}
             <Listing listing={item} userMode={props.userMode} />
           </ul>
-        )})
+        );})
       }
     </div>
   );

@@ -12,8 +12,8 @@ const listingReducer = (state = INITIAL_LIS_STATE, action) => {
   switch(action.type) {
     case 'setTitle':
       return {
-          ...state,
-          title: action.title,
+        ...state,
+        title: action.title,
       };
     case 'setDescription':
       return {
@@ -34,7 +34,7 @@ const listingReducer = (state = INITIAL_LIS_STATE, action) => {
       return {
         ...state,
         listings: action.listingsArr,
-      }
+      };
     case 'setUserMode':
       return {
         ...state,
@@ -44,7 +44,7 @@ const listingReducer = (state = INITIAL_LIS_STATE, action) => {
       return {
         ...state,
         listings: state.listings.filter(listing => listing.id !== action.deleteListing),
-      }        
+      };
     default:
       return state;
   }

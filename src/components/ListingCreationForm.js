@@ -49,34 +49,34 @@ const ListingCreationForm = () => {
       <div className="block">
         <label>Title: </label>
         <input 
-            id="input-title"
-            value={reducerTitle}
-            onChange={e => dispatch(setTitle(e.target.value))}
-          />
+          id="input-title"
+          value={reducerTitle}
+          onChange={e => dispatch(setTitle(e.target.value))}
+        />
       </div>
       <div className="block">
         <label>Description: </label>
         <input 
-            id="input-description"
-            value={reducerDescription}
-            onChange={e => dispatch(setDescription(e.target.value))}
-          />
+          id="input-description"
+          value={reducerDescription}
+          onChange={e => dispatch(setDescription(e.target.value))}
+        />
       </div>
       <div className="block">
         <label>Type: </label>
         <input 
-            id="input-type"
-            value={reducerType}
-            onChange={e => dispatch(setType(e.target.value))}
-          />
+          id="input-type"
+          value={reducerType}
+          onChange={e => dispatch(setType(e.target.value))}
+        />
       </div>
       <div className="block">
         <label>Price: </label>
         <input 
-            id="input-price"
-            value={reducerPrice}
-            onChange={e => dispatch(setPrice(e.target.value))}
-          />
+          id="input-price"
+          value={reducerPrice}
+          onChange={e => dispatch(setPrice(e.target.value))}
+        />
       </div>
       <button id="submit" type="submit" onClick={inputListing}>Submit</button>
     </div>

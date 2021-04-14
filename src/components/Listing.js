@@ -16,49 +16,47 @@ const Listing = ( props ) => {
   //STILL NEEDS TO BE WORKED ON
   const deleteListing = () => {
     Axios.get(`/api/deleteListing?id=${props.listing.id}`)
-    .then((res) => {
-      dispatch(deleteListing(props.listing.id));
-      // console.log(res.data);
-      //should go into store and delete listing
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+      .then(() => {
+        dispatch(deleteListing(props.listing.id));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
-//axios call to getInquries based on listing.id
-const viewInquiries = () => {
-  Axios.get(`/api/getInquiries?listingId=${props.listing.id}`)
-  .then((res) => {
-    dispatch(setInquiryList(res.data.inquiries));
-    //might need a return statement here to get the listing info
-  })
-  .catch((err) => {
-    console.log(err);
-  });
-};
-
-//axios call to makeInquiries API based on listing.id
-const makeInquirySubmit = () => {
-  const message = {
-    message: document.getElementById("textArea").value,
+  //axios call to getInquries based on listing.id
+  const viewInquiries = () => {
+    Axios.get(`/api/getInquiries?listingId=${props.listing.id}`)
+      .then((res) => {
+        dispatch(setInquiryList(res.data.inquiries));
+        //might need a return statement here to get the listing info
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
-  console.log('inquiries: ' + inquiries);
-  Axios.post(`/api/makeInquiry?listingId=${props.listing.id}`, message)
-  .then((res) => {
-    // console.log(res.data);
-    dispatch(appendInquiry(message.message));
-    document.getElementById("textArea").value = '';
-    // console.log('textarea: ' + document.getElementById("textArea").value);
-  })
-  .catch((err) => {
-    console.log(err);
-  });
-};
-const textAreaHandleChange = (e) => {
-  const action = sendInquiry(e.target.value);
-  dispatch(action);
-}
+
+  //axios call to makeInquiries API based on listing.id
+  const makeInquirySubmit = () => {
+    const message = {
+      message: document.getElementById('textArea').value,
+    };
+    console.log('inquiries: ' + inquiries);
+    Axios.post(`/api/makeInquiry?listingId=${props.listing.id}`, message)
+      .then(() => {
+        // console.log(res.data);
+        dispatch(appendInquiry(message.message));
+        document.getElementById('textArea').value = '';
+        // console.log('textarea: ' + document.getElementById("textArea").value);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  const textAreaHandleChange = (e) => {
+    const action = sendInquiry(e.target.value);
+    dispatch(action);
+  };
 
   return (
     <table className="listing">
@@ -66,28 +64,24 @@ const textAreaHandleChange = (e) => {
         <tr>
           <td>Title: </td>
           <td>
-            {/* {listing === undefined && (console.log('listing is undefined')) || listing === !undefined && (listing.title)} */}
             {props.listing.title}
           </td>
         </tr>
         <tr>
           <td>Description: </td>
           <td>
-          {/* {listing === undefined && (console.log('listing is undefined')) || listing === !undefined && (listing.description)} */}
             {props.listing.description}
           </td>
         </tr>
         <tr>
           <td>Type: </td>
           <td>
-            {/* {listing === undefined && (console.log('listing is undefined')) || listing === !undefined && (listing.type)} */}
             {props.listing.type}
           </td>
         </tr>
         <tr>
           <td>Price: </td>
           <td>
-          {/* { listing === undefined && (console.log('listing is undefined')) || listing === !undefined && (listing.price)} */}
             {props.listing.price}
           </td>
         </tr>
