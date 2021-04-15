@@ -40,11 +40,6 @@ const listingReducer = (state = INITIAL_LIS_STATE, action) => {
         ...state,
         userMode: action.userMode,
       };
-    case 'deleteListing':
-      return {
-        ...state,
-        listings: state.listings.filter(listing => listing.id !== action.deleteListing),
-      };
     default:
       return state;
   }

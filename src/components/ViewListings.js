@@ -23,7 +23,7 @@ const ViewListings = (props) => {
       <h1>ViewListings</h1>
       {
         listings.map((item) => {return (
-          <ul>
+          <ul key="viewListings">
             {/* <li>Title: {item.title}</li>
             <li>Description: {item.description}</li>
             <li>Type: {item.type}</li>

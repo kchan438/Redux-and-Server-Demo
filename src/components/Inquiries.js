@@ -10,7 +10,7 @@ const Inquiries = () => {
       {inquiryList.map((item) => {
         return (
           // may need a key prop for li, use id from inquiry selector...?
-          <p className="inquiry">{item.message}</p>
+          <p key={Math.random() + 100000000}className="inquiry">{item.message}</p>
         );
       })}
     </div>

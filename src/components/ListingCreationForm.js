@@ -1,18 +1,12 @@
 import Axios from 'axios';
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { setInquiryList } from '../redux/actions/inquiryActions';
+import { useDispatch } from 'react-redux';
 import { setTitle, setDescription, setType, setPrice, setListings } from '../redux/actions/listingActions';
 
 const ListingCreationForm = () => {
 
   //function that fetches data from store
   const dispatch = useDispatch();
-  //gets the state variables
-  const reducerTitle = useSelector(state => state.listingReducer.title);
-  const reducerDescription = useSelector(state => state.listingReducer.description);
-  const reducerType = useSelector(state => state.listingReducer.postType);
-  const reducerPrice = useSelector(state => state.listingReducer.price);
   
   const inputListing = () => {
     const body = {
@@ -25,7 +19,7 @@ const ListingCreationForm = () => {
     Axios.post('/api/createListing', body)
       .then((res) => {
         console.log(res.data);
-        dispatch(setInquiryList(res.data.items));
+        dispatch(setListings(res.data.items));
       })
       .catch((err) => {
         console.log(err);
@@ -50,7 +44,6 @@ const ListingCreationForm = () => {
         <label>Title: </label>
         <input 
           id="input-title"
-          value={reducerTitle}
           onChange={e => dispatch(setTitle(e.target.value))}
         />
       </div>
@@ -58,7 +51,6 @@ const ListingCreationForm = () => {
         <label>Description: </label>
         <input 
           id="input-description"
-          value={reducerDescription}
           onChange={e => dispatch(setDescription(e.target.value))}
         />
       </div>
@@ -66,7 +58,6 @@ const ListingCreationForm = () => {
         <label>Type: </label>
         <input 
           id="input-type"
-          value={reducerType}
           onChange={e => dispatch(setType(e.target.value))}
         />
       </div>
@@ -74,7 +65,6 @@ const ListingCreationForm = () => {
         <label>Price: </label>
         <input 
           id="input-price"
-          value={reducerPrice}
           onChange={e => dispatch(setPrice(e.target.value))}
         />
       </div>

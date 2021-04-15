@@ -27,8 +27,3 @@ export const setUserMode = userMode => ({
   type: 'setUserMode',
   userMode,
 });
-
-export const deleteListing = deleteListing => ({
-  type: 'deleteListing',
-  deleteListing,
-});

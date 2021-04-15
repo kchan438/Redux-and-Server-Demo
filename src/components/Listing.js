@@ -1,23 +1,20 @@
 import React from 'react';
 import Axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
-import { setInquiryList, sendInquiry, appendInquiry } from '../redux/actions/inquiryActions';
+import { setInquiryList, sendInquiry } from '../redux/actions/inquiryActions';
+import { setListings } from '../redux/actions/listingActions';
 
 //this is what i needed to get listing
 const Listing = ( props ) => {
   const dispatch = useDispatch();
   const inquiries = useSelector(state => state.inquiryReducer.inquiries);
-  const message = useSelector(state => state.inquiryReducer.message);
-  
-  //1.) Get listing to show up -DONE
-  //2.) Write a check if we are on admin or user page, 'Delete' or 'Send Inquiry'
+  const [textAreaMessage, setMessage] = React.useState('');
 
   //axios call to deleteListing based on id given
-  //STILL NEEDS TO BE WORKED ON
   const deleteListing = () => {
     Axios.get(`/api/deleteListing?id=${props.listing.id}`)
-      .then(() => {
-        dispatch(deleteListing(props.listing.id));
+      .then((res) => {
+        dispatch(setListings(res.data.items));
       })
       .catch((err) => {
         console.log(err);
@@ -39,21 +36,22 @@ const Listing = ( props ) => {
   //axios call to makeInquiries API based on listing.id
   const makeInquirySubmit = () => {
     const message = {
-      message: document.getElementById('textArea').value,
+      message: textAreaMessage,
     };
     console.log('inquiries: ' + inquiries);
+    //this axios call will make an inquiry passed on to makeInquiry and will be dispatched into listingReducer
     Axios.post(`/api/makeInquiry?listingId=${props.listing.id}`, message)
-      .then(() => {
-        // console.log(res.data);
-        dispatch(appendInquiry(message.message));
-        document.getElementById('textArea').value = '';
-        // console.log('textarea: ' + document.getElementById("textArea").value);
+      .then((res) => {
+        dispatch(setListings(res.data.items));
       })
       .catch((err) => {
         console.log(err);
       });
+    //this will reset the textarea tag after submitting
+    setMessage('');
   };
   const textAreaHandleChange = (e) => {
+    setMessage(e.target.value);
     const action = sendInquiry(e.target.value);
     dispatch(action);
   };
@@ -89,26 +87,24 @@ const Listing = ( props ) => {
           {props.userMode === undefined && (
             <tr>
               <td>
-                <button type="submit" id="deleteInquiry" onClick={deleteListing}>Delete</button>
+                <button id="deleteInquiry" onClick={deleteListing}>Delete</button>
               </td>
               <td>
                 <button onClick={viewInquiries}>View Inquiries</button>
-                {console.log('after click viewInquries: ' + JSON.stringify(inquiries))}
               </td>
             </tr>
           )}
           {props.userMode === true && (
             <tr>
               <td>
-                <textarea id="textArea" onChange={textAreaHandleChange}>
+                <textarea value={textAreaMessage} className="textArea" onChange={textAreaHandleChange}>
                 </textarea>
               </td>
               <td>
-                <button className="submit" type="submit" onClick={makeInquirySubmit}>Send Inquiry</button>
+                <button className="submit" onClick={makeInquirySubmit}>Send Inquiry</button>
               </td>
               <tr>
-                {/* {console.log('user inquiries: ' + JSON.stringify(inquiries))} */}
-                <p hidden>{message}</p>
+                <p hidden>{textAreaMessage}</p>
               </tr>
             </tr>
           )}

@@ -1,5 +1,4 @@
 const INITIAL_STATE = {
-  // id: '',
   message: '',
   inquiries: [],
 };
@@ -19,12 +18,6 @@ const inquiryReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         message: action.message,
-      };
-    //used for user
-    case 'appendInquiry':
-      return {
-        ...state,
-        inquiries: [...state.inquiries, action.appendInq],
       };
     default:
       return state;
