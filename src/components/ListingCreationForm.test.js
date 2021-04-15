@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent, getByText } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 
