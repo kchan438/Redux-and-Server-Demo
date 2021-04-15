@@ -15,7 +15,7 @@ const ListingCreationForm = () => {
       type: document.getElementById('input-type').value,
       price: document.getElementById('input-price').value,
     };
-
+    //axios call and returns and a listing where we will store it into listings[]
     Axios.post('/api/createListing', body)
       .then((res) => {
         console.log(res.data);
@@ -24,6 +24,7 @@ const ListingCreationForm = () => {
       .catch((err) => {
         console.log(err);
       });
+    //axios call will update the ViewListings component
     Axios.get('/api/viewListings')
       .then((res) => {
         console.log(res.data.items);

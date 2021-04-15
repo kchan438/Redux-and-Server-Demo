@@ -8,6 +8,7 @@ const ViewListings = (props) => {
   const dispatch = useDispatch();
   const listings = useSelector(state => state.listingReducer.listings);
 
+  //useEffect() will automatically refresh the ViewListings listings by this Axios call
   useEffect(() => {
     Axios.get('/api/viewListings')
       .then((res) => {
@@ -22,15 +23,12 @@ const ViewListings = (props) => {
     <div className="viewListingsDiv">
       <h1>ViewListings</h1>
       {
-        listings.map((item) => {return (
-          <ul key="viewListings">
-            {/* <li>Title: {item.title}</li>
-            <li>Description: {item.description}</li>
-            <li>Type: {item.type}</li>
-            <li>Price: {item.price}</li> */}
-            <Listing listing={item} userMode={props.userMode} />
-          </ul>
-        );})
+        listings.map((item) => {
+          return (
+            <ul key="viewListings">
+              <Listing listing={item} userMode={props.userMode} />
+            </ul>
+          );})
       }
     </div>
   );

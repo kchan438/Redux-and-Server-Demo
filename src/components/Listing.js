@@ -26,7 +26,6 @@ const Listing = ( props ) => {
     Axios.get(`/api/getInquiries?listingId=${props.listing.id}`)
       .then((res) => {
         dispatch(setInquiryList(res.data.inquiries));
-        //might need a return statement here to get the listing info
       })
       .catch((err) => {
         console.log(err);
@@ -50,6 +49,8 @@ const Listing = ( props ) => {
     //this will reset the textarea tag after submitting
     setMessage('');
   };
+  
+  //for handling the textArea box on the user page
   const textAreaHandleChange = (e) => {
     setMessage(e.target.value);
     const action = sendInquiry(e.target.value);
@@ -104,7 +105,6 @@ const Listing = ( props ) => {
                 <button className="submit" onClick={makeInquirySubmit}>Send Inquiry</button>
               </td>
               <tr>
-                <p hidden>{textAreaMessage}</p>
               </tr>
             </tr>
           )}
